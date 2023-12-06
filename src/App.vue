@@ -12,6 +12,7 @@ import TheWelcome from './components/TheWelcome.vue'
     </div>
     <span>TEST</span>
     <span >TEST2</span>
+    <span>TEST3</span>
   </header>
 
   <main>
