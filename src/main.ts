@@ -1,6 +1,17 @@
-import './assets/main.css'
-
-import { createApp } from 'vue'
+import { createApp } from "vue";
 import App from './App.vue'
+import {createRouter, createWebHistory} from 'vue-router/auto'
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-createApp(App).mount('#app')
+
+const app = createApp(App)
+
+const router = createRouter({
+    history:createWebHistory(),
+    // routes会自动插入
+})
+
+app.use(router)
+app.use(createPinia().use(piniaPluginPersistedstate))
+app.mount('#app')
