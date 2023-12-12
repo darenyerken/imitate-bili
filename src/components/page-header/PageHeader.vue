@@ -3,7 +3,7 @@
         <div class="bili-header__bar">
             <!-- 左侧 -->
             <ul class="left-entry">
-                <li v-for="link in links" >
+                <li v-for="link in links" :key="link.name">
                     <a :href="link.url" class="bar-font">{{ link.name }}</a>
                 </li>
             </ul>
@@ -13,7 +13,7 @@
                     <a href="" v-if="store.userInfo">{{ store.userInfo.name }}</a>
                     <router-link to="/login" v-else>登录</router-link>
                 </li>
-                <li class="right-entry-item" v-for="r in rights" >
+                <li class="right-entry-item" v-for="r in rights" :key="r">
                     <a href="" class="bar-font">{{ r }}</a>
                 </li>
                 <li>
@@ -26,11 +26,11 @@
             </ul>
         </div>
         <div class="bili-header__banner">
-            <img class="banner" src="/header_bac.png" alt="hb">
+            <img class="banner" src="/headerBack.png" alt="hb">
         </div>
         <div class="bili-header__logo">
             <a href="https://www.bilibili.com/">
-                <img src="/bili-logo.png" alt="logo" class="logo-img" width="160" height="78">
+                <img src="/bili-logo.png" alt="logo" class="logo-img" style="width: 80%;height: 80%;">
             </a>
         </div>
     </div>
@@ -39,12 +39,12 @@
 
 <script setup lang='ts'>
 import { onMounted, ref } from 'vue'
-import type { Ref } from 'vue';
 import { UploadOutlined } from '@ant-design/icons-vue'
 import userStore from '@/stores/userStore'
+import {useRouter} from 'vue-router'
 
 const store = userStore()
-
+const router = useRouter()
 
 // 视频列表
 const links = ref([
@@ -63,7 +63,12 @@ const rights = ref([
 const barBacShow = ref<boolean>(false)
 let a:NodeList | Array<any> = []
 onMounted(()=>{
+    // 获取所有a（为了改变a的字体颜色
     a = document.querySelectorAll('li>a')
+    // 获取第一个a 也就是 首页 （跳转首页
+    document.querySelector('li>a')?.addEventListener('click',function(){
+        router.push('/')
+    })
 })
 document.onscroll = ()=> {
     if(document.documentElement.scrollTop >= 50) {
@@ -87,7 +92,7 @@ document.onscroll = ()=> {
 
 @include b(header) {
     min-height: 64px;
-    height: 160px;
+    height: fit-content;
     position: relative;
     width: 100%;
     background-color: #fff;
@@ -96,7 +101,7 @@ document.onscroll = ()=> {
         // color: red;
         position: fixed;
         top: 0;
-        z-index: 99;
+        z-index: 101;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -164,6 +169,8 @@ document.onscroll = ()=> {
         position: absolute;
         bottom: 10px;
         left: 40px;
+        // width: 10%;
+        // height: 10%;
     }
 
     a {
@@ -177,7 +184,7 @@ document.onscroll = ()=> {
 .barBac {
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 100;
     transform: translateX(-50px);
     width: 100%;
     height: 50px;

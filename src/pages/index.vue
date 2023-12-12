@@ -3,7 +3,7 @@
         <a-row :gutter="20">
             <a-col :span="12">
                 <a-carousel autoplay>
-                    <div v-for="pic in 4">
+                    <div v-for="pic in 4" :key="pic">
                         <a href="">
                             <img class="caroPic" :src="`/${pic}.avif`" alt="pic">
                         </a>
@@ -12,7 +12,7 @@
             </a-col>
             <a-col :span="12">
                 <a-carousel autoplay>
-                    <div v-for="pic in 4">
+                    <div v-for="pic in 4" :key="pic">
                         <a href="">
                             <img class="caroPic" :src="`/${pic}.avif`" alt="pic">
                         </a>
@@ -23,16 +23,18 @@
 
         <a-row :gutter="20">
             <a-col :span="6" v-for="video in videos" :key="video.key">
-                <a-card hoverable>
-                    <template #actions>
-                        <PlayCircleOutlined @click="watchLater" />
-                    </template>
-                    <template #cover>
-                        <img :src="video.image" alt="">
-                    </template>
-                    <a-card-meta :title="video.name" :description="video.text">
-                    </a-card-meta>
-                </a-card>
+                <RouterLink :to="`/video/${video.key}`">
+                    <a-card hoverable>
+                        <template #actions>
+                            <PlayCircleOutlined @click="watchLater" />
+                        </template>
+                        <template #cover>
+                            <img :src="video.image" alt="">
+                        </template>
+                        <a-card-meta :title="video.name" :description="video.text">
+                        </a-card-meta>
+                    </a-card>
+                </RouterLink>
             </a-col>
         </a-row>
         <div class="loading" v-show="loading">
@@ -51,7 +53,7 @@
 
 <script setup lang='ts'>
 import Layout from '@/layouts/default.vue'
-import { onMounted, onUnmounted, reactive, ref, resolveDirective, withDirectives } from 'vue';
+import { onMounted, onUnmounted, reactive, ref} from 'vue';
 
 // -----------  视频列表加载
 import { getIndexList } from '@/apis/mock';

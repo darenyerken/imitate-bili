@@ -15,7 +15,7 @@ export async function getIndexList(page:number = 0, offset:number= 20):Promise<V
             text:faker.lorem.paragraph(1),
             name:faker.internet.displayName(),
             image:faker.image.urlLoremFlickr({
-                category:'nature',
+                category:'starwars',
                 width:640,
                 height:480
             })

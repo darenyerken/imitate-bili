@@ -10,6 +10,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 // require('events').EventEmitter.defaultMaxListeners = 0;
 // https://vitejs.dev/config/
 export default defineConfig({
+  lintOnSave:true,
   plugins: [
     VueRouter({}), //自动路由引入
     vue(),

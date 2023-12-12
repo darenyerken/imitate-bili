@@ -9,7 +9,7 @@ export function userLogin(loginData:LoginData):Promise<LoginRes> {
                 resolve({
                     token:faker.person.jobDescriptor(),
                     userInfo:{
-                        name:faker.person.firstName()
+                        name:faker.internet.displayName()
                     }
                 })
             },1000)

@@ -34,7 +34,7 @@
 
 <script setup lang='ts'>
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed} from 'vue'
 import { useRouter } from 'vue-router'
 import {userLogin} from '@/apis/user'
 import type { LoginData } from '@/types/user'
