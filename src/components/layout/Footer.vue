@@ -19,5 +19,7 @@ withDefaults(defineProps<Footerprops>(),{
 <style scoped>
 .ant-layout-footer {
     text-align: center;
+    background-color: #17ACF7;
+    color: #fff;
 }
 </style>

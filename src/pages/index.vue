@@ -1,7 +1,8 @@
 <template>
     <Layout>
+        <channel-bar />
         <a-row :gutter="20">
-            <a-col :span="12">
+            <a-col :span="10">
                 <a-carousel autoplay>
                     <div v-for="pic in 4" :key="pic">
                         <a href="">
@@ -10,14 +11,23 @@
                     </div>
                 </a-carousel>
             </a-col>
-            <a-col :span="12">
-                <a-carousel autoplay>
-                    <div v-for="pic in 4" :key="pic">
-                        <a href="">
-                            <img class="caroPic" :src="`/${pic}.avif`" alt="pic">
-                        </a>
-                    </div>
-                </a-carousel>
+            <a-col :span="14">
+                <a-row :gutter="20">
+                    <a-col :span="8" v-for="video in mainVideos" :key="video.key">
+                        <RouterLink :to="`/video/${video.key}`">
+                            <a-card hoverable class="main-videos">
+                                <template #actions>
+                                    <PlayCircleOutlined @click="watchLater" />
+                                </template>
+                                <template #cover>
+                                    <img :src="'loading.gif'" v-lazy-load="video.image">
+                                </template>
+                                <a-card-meta :title="video.name" :description="video.text">
+                                </a-card-meta>
+                            </a-card>
+                        </RouterLink>
+                    </a-col>
+                </a-row>
             </a-col>
         </a-row>
 
@@ -29,7 +39,7 @@
                             <PlayCircleOutlined @click="watchLater" />
                         </template>
                         <template #cover>
-                            <img :src="video.image" alt="">
+                            <img :src="'loading.gif'" v-lazy-load="video.image">
                         </template>
                         <a-card-meta :title="video.name" :description="video.text">
                         </a-card-meta>
@@ -53,25 +63,33 @@
 
 <script setup lang='ts'>
 import Layout from '@/layouts/default.vue'
-import { onMounted, onUnmounted, reactive, ref} from 'vue';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
+import ChannelBar from '@/components/channelBar/ChannelBar.vue'  //频道栏目
 
 // -----------  视频列表加载
-import { getIndexList } from '@/apis/mock';
+import { getIndexList, getMainList } from '@/apis/mock';
 import type { Video } from '@/apis/mock'
-import {  ArrowUpOutlined, LoadingOutlined, PlayCircleOutlined } from '@ant-design/icons-vue'
+import { ArrowUpOutlined,
+        LoadingOutlined,
+        PlayCircleOutlined,
+} from '@ant-design/icons-vue'
 // import { renderToString } from '@vue/test-utils';
 
-let videos = ref<Video[]>()  //电影数据
+let videos = ref<Video[]>()  //视频数据
 let curPage: number = 0 //当前页数
-let totalPage: number = 5  //总的页数  这个数据更应该是后台发的，暂时弄这里
+let totalPage: number = 4  //总的页数-1  这个数据应该是后台发的，暂时弄这里
 let loading = ref<boolean>(false)  //一是简单的防抖，二是loading组件的开关
+const mainVideos = ref<Video[]>()
 // 初次加载
 onMounted(async () => {
     loading.value = true  // loading状态开启
-    curPage++  //增加页数
     videos.value = await getIndexList(curPage)  //请求数据
+    curPage++  //增加页数
     loading.value = false //loading状态关闭
     window.addEventListener('scroll', loadVideos)
+
+    // 获取主要视频
+    mainVideos.value = await getMainList()
 })
 // 后续懒加载
 const loadVideos = async () => {
@@ -93,6 +111,9 @@ const loadVideos = async () => {
 onUnmounted(() => {
     window.removeEventListener('scroll', loadVideos)
 })
+// 图片懒加载
+import { useLazyLoad } from '@/directives/useLazyLoad'
+const vLazyLoad = useLazyLoad()
 
 
 // ------------ 稍后再看动画
@@ -130,24 +151,31 @@ const afterEnter = () => {
 }
 
 // 回到顶部
-import {useBackTop} from '@/directives/useBacktop'
+import { useBackTop } from '@/directives/useBacktop'
 const vBackTop = useBackTop()
 
 </script>
 
 <style scoped lang='scss'>
+
+
 // 轮播图
+:deep(.ant-carousel .slick-slider) {
+    border-radius: 15px;
+}
+
 .ant-carousel {
-    width: 98%;
+    width: 100%;
     margin: 10px 0;
     border-radius: 15px;
 }
 
-// 视频列表
 .caroPic {
     width: 100%;
     border-radius: 15px;
 }
+
+// 视频列表
 
 .ant-col {
     margin-top: 10px;
@@ -163,6 +191,10 @@ const vBackTop = useBackTop()
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+// .main-videos {
+//     transform: scaleY(.95) translateY(-12px);
+// }
 
 // 加载框
 .loading {
@@ -202,7 +234,6 @@ const vBackTop = useBackTop()
     color: #fff;
     position: fixed;
     right: 30px;
-    bottom: 200px;
+    bottom: 50px;
     display: none;
-}
-</style>
+}</style>

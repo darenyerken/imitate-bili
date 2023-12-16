@@ -8,14 +8,14 @@
             <div class="outer" @scroll="outerScroll">
                 <!-- 占位元素 -->
                 <div :style="{ height: `${commentListHeight}px` }" class="placeholder"></div>
-                <div class="viewWindow" :style="{ transform: `translateY(${viewTranslate}px)`,top: `-${viewWindowTop}px` }">
+                <div class="viewWindow" :style="{ transform: `translateY(${viewTranslate}px)`, top: `-${viewWindowTop}px` }">
                     <Comment v-for="comment in viewList" :key="comment.key" class="comment">
                         {{ comment.key }}
                         <template #author>
                             <a>{{ comment.author }}</a>
                         </template>
                         <template #content>
-                            <p>{{comment.content }}</p>
+                            <p>{{ comment.content }}</p>
                         </template>
                     </Comment>
                 </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang='ts'>
-import { watch, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import Layout from '@/layouts/default.vue'
 import Comment from '@/components/comment/Comment.vue'
 
@@ -43,7 +43,7 @@ onMounted(() => {
 })
 
 // ----------------评论区
-// 虚拟列表技术：定高
+// 定高虚拟列表技术：
 // 列表视口只能容下6条评论
 // 上下各预加载2条评论
 // 每次只渲染10条评论
@@ -57,7 +57,7 @@ const commentListHeight = ref<number>(0)  //占位元素高度
 onMounted(async function () {
     // 页面有个小bug总是跳到评论区
     window.scrollTo({
-        top:0
+        top: 0
     })
 
     // 获取所有评论
@@ -68,21 +68,21 @@ onMounted(async function () {
         return item.key <= 9
     })
     // 设置占位元素高度
-    commentListHeight.value = res.length*COMMEMT_HEIGHT
+    commentListHeight.value = res.length * COMMEMT_HEIGHT
 })
 
 const viewTranslate = ref<number>(0)  // 列表视口向下偏移量 === 窗口向下滑动量
 const viewWindowTop = ref<number>(0)  //列表视口的绝对位置：top
 const outerScroll = (e: Event) => {  //外窗口滑动
     let scrollTop = (e.target as Element).scrollTop
-    console.log(Math.ceil(scrollTop/COMMEMT_HEIGHT));
-    
-    if(scrollTop > COMMEMT_HEIGHT*4) {
-        viewWindowTop.value = scrollTop%COMMEMT_HEIGHT + COMMEMT_HEIGHT
+    console.log(Math.ceil(scrollTop / COMMEMT_HEIGHT));
+
+    if (scrollTop > COMMEMT_HEIGHT * 4) {
+        viewWindowTop.value = scrollTop % COMMEMT_HEIGHT + COMMEMT_HEIGHT
         viewTranslate.value = scrollTop  //视窗下移
         viewList.value = commentList.value?.filter(item => {
-            return item.key >= Math.ceil(scrollTop/COMMEMT_HEIGHT)-2 &&
-                    item.key <= Math.ceil(scrollTop/COMMEMT_HEIGHT) + 9
+            return item.key >= Math.ceil(scrollTop / COMMEMT_HEIGHT) - 2 &&
+                item.key <= Math.ceil(scrollTop / COMMEMT_HEIGHT) + 9
         })
     } else {
         viewTranslate.value = 0

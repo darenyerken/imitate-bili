@@ -7,18 +7,23 @@
                     <a :href="link.url" class="bar-font">{{ link.name }}</a>
                 </li>
             </ul>
+            <!-- 中间 -->
+            <a-input-search style="width: 25%;" placeholder="luke"></a-input-search>
             <!-- 右侧 -->
             <ul class="right-entry">
                 <li style="margin-right: 8px;">
                     <a href="" v-if="store.userInfo">{{ store.userInfo.name }}</a>
                     <router-link to="/login" v-else>登录</router-link>
                 </li>
+                <li style="margin-right: 8px;" @click="quit">
+                    <a v-if="store.userInfo">退出</a>
+                </li>
                 <li class="right-entry-item" v-for="r in rights" :key="r">
                     <a href="" class="bar-font">{{ r }}</a>
                 </li>
                 <li>
                     <div class="upload-button">
-                        <a href="">
+                        <a href="" style="color: #fff !important;">
                             <UploadOutlined />投稿
                         </a>
                     </div>
@@ -34,14 +39,16 @@
             </a>
         </div>
     </div>
-    <div v-show="barBacShow" class="barBac"></div>
+    <div v-show="barBacShow" class="barBac">
+        <div class="logo"></div>
+    </div>
 </template>
 
 <script setup lang='ts'>
 import { onMounted, ref } from 'vue'
 import { UploadOutlined } from '@ant-design/icons-vue'
 import userStore from '@/stores/userStore'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const store = userStore()
 const router = useRouter()
@@ -61,30 +68,34 @@ const rights = ref([
 // 导航列表背景
 // const bar = ref<any>()
 const barBacShow = ref<boolean>(false)
-let a:NodeList | Array<any> = []
-onMounted(()=>{
+let a: NodeList | Array<any> = []
+onMounted(() => {
     // 获取所有a（为了改变a的字体颜色
     a = document.querySelectorAll('li>a')
     // 获取第一个a 也就是 首页 （跳转首页
-    document.querySelector('li>a')?.addEventListener('click',function(){
+    document.querySelector('li>a')?.addEventListener('click', function () {
         router.push('/')
     })
 })
-document.onscroll = ()=> {
-    if(document.documentElement.scrollTop >= 50) {
+document.onscroll = () => {
+    if (document.documentElement.scrollTop >= 50) {
         barBacShow.value = true
-        
+
         a.forEach(item => {
-            item.setAttribute('style','color: black !important')
+            item.setAttribute('style', 'color: black !important')
         })
     } else {
         barBacShow.value = false
         a.forEach(item => {
-            item.setAttribute('style','color: white !important')
+            item.setAttribute('style', 'color: white !important')
         })
     }
 }
 
+// 退出登录
+const quit = ()=> {
+    store.setUser(null)
+}
 </script>
 
 <style lang='scss'>
@@ -115,6 +126,7 @@ document.onscroll = ()=> {
             align-items: center;
             flex-shrink: 0;
             list-style: none;
+            margin-bottom: 0;
 
             li {
                 margin-right: 10px;
@@ -124,6 +136,7 @@ document.onscroll = ()=> {
         & .right-entry {
             display: flex;
             align-items: center;
+            margin-bottom: 0;
 
             .right-entry-item {
                 display: block;
@@ -161,6 +174,7 @@ document.onscroll = ()=> {
 
         .banner {
             width: 100vw;
+            // min-width: 1100px;
             transform: translateX(-10px);
         }
     }
@@ -169,8 +183,7 @@ document.onscroll = ()=> {
         position: absolute;
         bottom: 10px;
         left: 40px;
-        // width: 10%;
-        // height: 10%;
+        width: 15vw;
     }
 
     a {
@@ -181,14 +194,58 @@ document.onscroll = ()=> {
         list-style: none;
     }
 }
+
+// 下滑背景
 .barBac {
     position: fixed;
     top: 0;
     z-index: 100;
     transform: translateX(-50px);
+    min-width: 1100px;
     width: 100%;
-    height: 50px;
+    height: 64px;
     background-color: #fff;
+
+    .logo {
+        background-image: url('bili_logo2.jpg');
+        background-size: 125px;
+        background-position: center;
+
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 80px;
+        height: 40px;
+    }
 }
 
+// 搜索框
+.ant-input-group>.ant-input:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    height: 32px;
+}
+
+.ant-input-group>.ant-input:first-child:focus {
+    box-shadow: none;
+    background-color: #ddd;
+}
+
+.ant-input-group-addon {
+    background-color: #fff0;
+}
+
+.ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+    background-color: #eee;
+}
+
+.ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary):hover {
+    background-color: #ddd;
+    border: none;
+}
 </style>

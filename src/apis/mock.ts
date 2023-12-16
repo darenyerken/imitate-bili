@@ -15,7 +15,7 @@ export async function getIndexList(page:number = 0, offset:number= 20):Promise<V
             text:faker.lorem.paragraph(1),
             name:faker.internet.displayName(),
             image:faker.image.urlLoremFlickr({
-                category:'starwars',
+                category:'StarWars',
                 width:640,
                 height:480
             })
@@ -25,6 +25,27 @@ export async function getIndexList(page:number = 0, offset:number= 20):Promise<V
     return new Promise((resolve)=> {
         setTimeout(()=>{
             resolve(data)
-        },1000)
+        },500)
+    })
+}
+
+export async function getMainList():Promise<Video[]> {
+    const data:Video[] = Array.from({length:3},(_,key)=>{
+        return {
+            key: key,
+            text:faker.lorem.paragraph(1),
+            name:faker.internet.displayName(),
+            image:faker.image.urlLoremFlickr({
+                category:'cartoon',
+                width:640,
+                height:480
+            })
+        }
+    })
+
+    return new Promise((resolve)=> {
+        setTimeout(()=>{
+            resolve(data)
+        },500)
     })
 }

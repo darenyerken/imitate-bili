@@ -12,8 +12,5 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  rules:[
-    {'vue/multi-word-component-names':'off'},
-    {"no-restricted-imports":'off'}
-  ]
+  rules:{'vue/multi-word-component-names':'off'}
 }

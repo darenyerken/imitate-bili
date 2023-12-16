@@ -48,12 +48,11 @@
 <script lang="ts">
 import dayjs from 'dayjs';
 import { LikeFilled, LikeOutlined, DislikeFilled, DislikeOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref, onMounted ,getCurrentInstance} from 'vue'
-import type {Ref} from 'vue'
+import { defineComponent, ref } from 'vue'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 
-import type { emit } from 'process';
+// import type { emit } from 'process';
 export default defineComponent({
     components: {
         LikeFilled,
