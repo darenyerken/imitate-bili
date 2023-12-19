@@ -14,7 +14,7 @@
             <a-col :span="14">
                 <a-row :gutter="20">
                     <a-col :span="8" v-for="video in mainVideos" :key="video.key">
-                        <RouterLink :to="`/video/${video.key}`">
+                        <RouterLink to="`/video/7`">
                             <a-card hoverable class="main-videos">
                                 <template #actions>
                                     <PlayCircleOutlined @click="watchLater" />
