@@ -19,6 +19,7 @@
     "@ant-design/icons-vue": "^7.0.1",
     "ant-design-vue": "^3.2.20",
     "axios": "^1.6.2",
+    "cache-loader": "^4.1.0",
     "dayjs": "^1.11.10",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",

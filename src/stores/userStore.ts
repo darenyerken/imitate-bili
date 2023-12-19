@@ -6,7 +6,7 @@ const userStore = defineStore('user',()=> {
     // 用户信息
     const userInfo = ref<UserInfo | null>(null)
     // 设置用户信息
-    const setUser = (user:UserInfo)=> {
+    const setUser = (user:UserInfo | null)=> {
         userInfo.value = user
     }
     return {

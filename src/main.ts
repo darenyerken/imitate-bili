@@ -1,5 +1,7 @@
 import { createApp } from "vue";
+// @ts-ignore
 import App from './App.vue'
+// @ts-ignore
 import {createRouter, createWebHistory} from 'vue-router/auto'
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'

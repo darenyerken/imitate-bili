@@ -81,19 +81,19 @@ document.onscroll = () => {
     if (document.documentElement.scrollTop >= 50) {
         barBacShow.value = true
 
-        a.forEach(item => {
+        a.forEach((item:HTMLElement) => {
             item.setAttribute('style', 'color: black !important')
         })
     } else {
         barBacShow.value = false
-        a.forEach(item => {
+        a.forEach((item:HTMLElement) => {
             item.setAttribute('style', 'color: white !important')
         })
     }
 }
 
 // 退出登录
-const quit = ()=> {
+const quit = ()=> { 
     store.setUser(null)
 }
 </script>
@@ -207,7 +207,7 @@ const quit = ()=> {
     background-color: #fff;
 
     .logo {
-        background-image: url('bili_logo2.jpg');
+        background-image: url('bili-logo2.jpg');
         background-size: 125px;
         background-position: center;
 

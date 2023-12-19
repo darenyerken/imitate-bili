@@ -31,6 +31,7 @@ import Layout from '@/layouts/default.vue'
 import Comment from '@/components/comment/Comment.vue'
 
 // ---------------视频播放功能
+// @ts-ignore
 import Player from 'xgplayer/dist/index.min.js'
 import 'xgplayer/dist/index.min.css'
 onMounted(() => {

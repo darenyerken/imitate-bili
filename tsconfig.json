@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
     // 解析非相对模块名的基准目录
-    "baseUrl": ".",
+    "baseUrl": "./",
     // 模块名到基于 baseUrl的路径映射的列表。
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
+    // 如果baseUrl设置为'src',那paths就应该配置为{"@/*": "./*"},如下：
+    // "baseUrl": "src",
+    // "paths": {
+    //  "@/*": ["./*"]
+    // }
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules"],
+  // "files": [],
+  // "references": [
+  //   {
+  //     "path": "./tsconfig.node.json"
+  //   },
+  //   {
+  //     "path": "./tsconfig.app.json"
+  //   }
+  // ]
 }
