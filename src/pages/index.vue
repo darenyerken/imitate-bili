@@ -6,7 +6,7 @@
                 <a-carousel autoplay>
                     <div v-for="pic in 4" :key="pic">fdsfsdf
                         <a href="">
-                            <img class="caroPic" :src="`/imitate-bili/${pic}.avif`" alt="pic">
+                            <img class="caroPic" :src="`https://raw.githubusercontent.com/darenyerken/imitate-bili/main/dist/${pic}.avif`" alt="pic">
                         </a>
                     </div>
                 </a-carousel>
