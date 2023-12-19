@@ -9,8 +9,9 @@ import VueRouter from 'unplugin-vue-router/vite'
 
 // require('events').EventEmitter.defaultMaxListeners = 0;
 // https://vitejs.dev/config/
-  // @ts-nocheck
+// @ts-nocheck
 export default defineConfig({
+  base: '/imitate-bili/',
   plugins: [
     VueRouter({}), //自动路由引入
     vue(),
@@ -31,6 +32,7 @@ export default defineConfig({
     }),
   ],
   // 配置测试环境
+  // @ts-ignore
   test: {
     globals: true,
     environment: 'jsdom',
@@ -65,7 +67,7 @@ export default defineConfig({
   //     }
   //   }
   // }
-  lintOnSave:false,
+  lintOnSave: false,
 })
 
 // import events from 'events'

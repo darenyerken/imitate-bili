@@ -2,7 +2,7 @@ import { createApp } from "vue";
 // @ts-ignore
 import App from './App.vue'
 // @ts-ignore
-import {createRouter, createWebHistory} from 'vue-router/auto'
+import {createRouter, createWebHashHistory } from 'vue-router/auto'
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
@@ -10,7 +10,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const app = createApp(App)
 
 const router = createRouter({
-    history:createWebHistory(),
+    history:createWebHashHistory(),
     // routes会自动插入
 })
 
