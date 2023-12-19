@@ -40,7 +40,7 @@
         </div>
     </div>
     <div v-show="barBacShow" class="barBac">
-        <div class="logo"></div>
+        <div class="logo" :style="{backgroundImage:headerBaclogo}"></div>
     </div>
 </template>
 
@@ -96,6 +96,9 @@ document.onscroll = () => {
 const quit = ()=> { 
     store.setUser(null)
 }
+
+// 头部下拉背景图
+const headerBaclogo = require('bili-logo2.jpg');
 </script>
 
 <style lang='scss'>
@@ -207,7 +210,7 @@ const quit = ()=> {
     background-color: #fff;
 
     .logo {
-        background-image: url('bili-logo2.jpg');
+        // background-image: url('bili-logo2.jpg');
         background-size: 125px;
         background-position: center;
 
