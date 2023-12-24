@@ -11,7 +11,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 // https://vitejs.dev/config/
 // @ts-nocheck
 export default defineConfig({
-  base: '/imitate-bili/',
+  base: '/imitate-bili/', 
   plugins: [
     VueRouter({}), //自动路由引入
     vue(),

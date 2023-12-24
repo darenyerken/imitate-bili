@@ -8,7 +8,7 @@
                 </li>
             </ul>
             <!-- 中间 -->
-            <a-input-search style="width: 25%;" placeholder="luke"></a-input-search>
+            <a-input-search style="width: 25%; position: fixed; top: 15px; left: 35%;" placeholder="luke"></a-input-search>
             <!-- 右侧 -->
             <ul class="right-entry">
                 <li style="margin-right: 8px;">

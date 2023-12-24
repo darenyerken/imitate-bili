@@ -9,7 +9,6 @@ function useLazyLoad (){
                 if( entries[0].isIntersecting) {
                     el.setAttribute('src',binding.value)
                     console.log(1);
-                    
                 }
             }, {
                 root:null,  //null代表window窗口是视口
